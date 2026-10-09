@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тест по лексике: Airport + Lesson words</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#faf7f2;--card:#fff;--tx:#1b2438;--mut:#6b7385;--bd:#e3ddd0;--ac:#1b2438;--ok:#d9f2e0;--okb:#2e9b57;--bad:#fadcdc;--badb:#d04545}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171f;--card:#1d222e;--tx:#eceef4;--mut:#9aa2b5;--bd:#2f3646;--ac:#c9a86a;--ok:#1d3b2a;--okb:#4cc17f;--bad:#472324;--badb:#ef6b6b}}
+:root[data-theme="dark"]{--bg:#14171f;--card:#1d222e;--tx:#eceef4;--mut:#9aa2b5;--bd:#2f3646;--ac:#c9a86a;--ok:#1d3b2a;--okb:#4cc17f;--bad:#472324;--badb:#ef6b6b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:8px 0 4px}
+.sub{color:var(--mut);margin:0 0 14px;font-size:14px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{flex:1 1 140px;padding:10px 8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font-size:14px;cursor:pointer}
+.tabs button.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+.panel{display:none}.panel.on{display:block}
+.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:6px 0;z-index:2}
+.score{font-weight:600}
+.btn{padding:9px 14px;border-radius:10px;border:1px solid var(--ac);background:var(--ac);color:var(--bg);cursor:pointer;font-size:14px}
+.btn.ghost{background:transparent;color:var(--tx);border-color:var(--bd)}
+.q{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px}
+.qt{font-weight:600;margin-bottom:8px}
+.qt .n{color:var(--mut);font-weight:400;margin-right:6px}
+.blank{display:inline-block;min-width:60px;border-bottom:2px solid var(--mut)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:480px){.opts{grid-template-columns:1fr}}
+.opts button{padding:10px;border:1px solid var(--bd);background:transparent;color:var(--tx);border-radius:10px;font-size:15px;text-align:left;cursor:pointer}
+.opts button.ok{background:var(--ok);border-color:var(--okb)}
+.opts button.bad{background:var(--bad);border-color:var(--badb)}
+.opts button:disabled{cursor:default}
+.hint{color:var(--mut);font-size:13px}
+input[type=text]{width:100%;margin-top:6px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font-size:16px}
+input.ok{background:var(--ok);border-color:var(--okb)}input.bad{background:var(--bad);border-color:var(--badb)}
+.ans{font-size:13px;color:var(--badb);margin-top:4px}
+.card{min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:26px;font-weight:600;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px;cursor:pointer;margin-bottom:12px;user-select:none}
+.card small{font-size:12px;color:var(--mut);font-weight:400;margin-bottom:8px;letter-spacing:.1em}
+.row{display:flex;gap:8px;margin-bottom:14px}.row .btn{flex:1}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pg button{padding:12px 8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font-size:15px;cursor:pointer}
+.pg button.sel{border:2px solid var(--ac)}
+.pg button.ok{background:var(--ok);border-color:var(--okb);opacity:.7}
+.pg button.bad{background:var(--bad);border-color:var(--badb)}
+</style>
+</head>
+<body>
+<main>
+<h1>✈️ Тест по лексике</h1>
+<p class="sub">Airport + слова с прошлого урока. Идти по вкладкам слева направо: карточки → пары → тесты → предложения → перевод.</p>
+<div class="tabs" id="tabs"></div>
+<div id="panels"></div>
+</main>
+<script>
+const W=[
+["Посадочный талон","boarding pass"],["Стойка регистрации","check-in desk"],["Проверка безопасности","security check"],
+["Зал ожидания","departure lounge"],["Ручная кладь","hand luggage"],["Зона выдачи багажа","baggage claim"],
+["Выход на посадку","gate"],["Таможня","customs"],["Задержка","delay"],["Пересадка","layover"],
+["Позвоночник","spine"],["Расширять","to expand"],["Товарищ","companion"],["Знакомый","acquaintance"],
+["Общежитие","dormitory"],["Отравление","poisoning"],["Неважно","doesn't matter"],["Халат","robe"],
+["Расширение кругозора","broadening horizons"],["Буквально","literally"],["Рейс","flight"],
+["Шлагбаум","barrier"],["Сносно","decently"]
+];
+const S=[
+["Don't forget your ___; you can't board the plane without it.","boarding pass",["customs","delay"]],
+["You must go through the ___ before the gate.","security check",["baggage claim","layover"]],
+["We collect our suitcases at the ___.","baggage claim",["departure lounge","gate"]],
+["Our flight had a two-hour ___ in Dubai.","layover",["customs","spine"]],
+["I can't come to work. I have food ___.","poisoning",["acquaintance","dormitory"]],
+["He hurt his ___ playing football.","spine",["robe","barrier"]],
+["After the shower she put on a bathrobe — a soft ___.","robe",["companion","dormitory"]],
+["Traveling is great for ___.","broadening horizons",["poisoning","layover"]],
+["I live in a university ___.","dormitory",["gate","acquaintance"]],
+["I know him a little — he's just an ___.","acquaintance",["dormitory","customs"]],
+["Our ___ to Paris was delayed by three hours.","flight",["spine","robe"]],
+["The car stopped in front of the ___.","barrier",["acquaintance","customs"]],
+["He speaks English quite ___.","decently",["barrier","dormitory"]],
+["I was ___ shocked when I saw the price.","literally",["decently","customs"]],
+["We want to ___ our business to other cities.","expand",["poison","board"]],
+["Don't worry about the mistake, it ___.","doesn't matter",["expands","is literally"]],
+["My travel ___ was very friendly.","companion",["spine","customs"]],
+["Please wait in the ___ until boarding starts.","departure lounge",["baggage claim","customs"]],
+["I'll put my ___ in the overhead bin.","hand luggage",["delay","check-in desk"]],
+["Go to the ___ to get your boarding pass.","check-in desk",["baggage claim","gate"]],
+["The plane is at ___ 15. Check the screen.","gate",["customs","layover"]],
+["Because of the ___, we waited at the airport for hours.","delay",["robe","gate"]],
+["All passengers must show their ___ at the gate.","boarding pass",["spine","barrier"]],
+["Liquids are not allowed in ___.","hand luggage",["dormitory","customs"]],
+["He stayed in a ___ during his first year at university.","dormitory",["layover","robe"]],
+["The doctor said it's food ___ and gave me pills.","poisoning",["spine","gate"]],
+["She was my ___ at the conference — we sat together.","companion",["delay","barrier"]],
+["This is ___ the best pizza in the city.","literally",["customs","spine"]],
+["We need to ___ the company, so we are hiring new people.","expand",["board","delay"]],
+["The ___ was closed, so we couldn't enter the parking lot.","barrier",["customs","robe"]],
+["I speak Spanish only ___, but I can order food.","decently",["literally","gate"]],
+["We waited at ___ for an hour for our suitcases.","baggage claim",["check-in desk","layover"]],
+["Please go to ___ and declare your goods.","customs",["gate","spine"]],
+["Meeting people from different countries is good for ___.","broadening horizons",["poisoning","delay"]],
+["I forgot his name, but it ___.","doesn't matter",["expands","is a layover"]],
+["My ___ hurts after ten hours on the plane.","spine",["gate","acquaintance"]]
+];
+const P=[
+["Не забудь посадочный талон.","Don't forget your boarding pass.",["Don't forget your baggage claim.","Don't forget your customs."]],
+["Наш рейс задержали на три часа.","Our flight was delayed by three hours.",["Our flight left three hours early.","Our gate was three hours."]],
+["Подожди меня в зале ожидания.","Wait for me in the departure lounge.",["Wait for me at the baggage claim.","Wait for me at the check-in desk."]],
+["У меня пищевое отравление.","I have food poisoning.",["I have a food allergy.","I have a sore spine."]],
+["У нас пересадка в Дубае.","We have a layover in Dubai.",["We have a delay in Dubai.","We have customs in Dubai."]],
+["Я живу в общежитии.","I live in a dormitory.",["I live with an acquaintance.","I live near the barrier."]],
+["Он буквально спас меня.","He literally saved me.",["He decently saved me.","He expanded me."]],
+["Шлагбаум поднялся, и мы проехали.","The barrier went up and we drove through.",["The customs went up and we drove through.","The robe went up and we drove through."]],
+["Сначала пройдите проверку безопасности.","First, go through the security check.",["First, go to the baggage claim.","First, go through customs."]],
+["Путешествия расширяют кругозор.","Traveling is broadening horizons.",["Traveling is a long layover.","Traveling is food poisoning."]],
+["Мой рейс в 9 утра, выход на посадку 15.","My flight is at 9 a.m., gate 15.",["My delay is at 9 a.m., gate 15.","My flight is at 9 a.m., customs 15."]],
+["Это неважно, не переживай.","It doesn't matter, don't worry.",["It is literally, don't worry.","It is a robe, don't worry."]]
+];
+const T=[
+["Show your passport at ___ if you fly abroad.","таможня",["customs"]],
+["My suitcase is big, so I check it in at the ___ desk.","check-in … desk · стойка регистрации",["check-in","check in"],"check-in"],
+["The plane is at ___ 15. Check the screen.","выход на посадку",["gate"]],
+["I only travel with ___ when I'm on a short trip.","ручная кладь",["hand luggage"]],
+["The ___ was caused by bad weather.","задержка",["delay"]],
+["We have a short ___ in Istanbul.","пересадка",["layover"]],
+["I can't come, I have food ___.","отравление",["poisoning"]],
+["He has a problem with his ___.","позвоночник",["spine"]],
+["Students live in a ___.","общежитие",["dormitory"]],
+["She put on her bathrobe — a soft ___.","халат",["robe"]],
+["This flight is ___ the cheapest one.","буквально",["literally"]],
+["I want to ___ my vocabulary.","расширять",["expand","to expand"]],
+["He's my old ___. We met at university.","знакомый",["acquaintance"]],
+["Traveling is good for ___.","расширение кругозора",["broadening horizons"]],
+["The ___ went up and the car drove in.","шлагбаум",["barrier","gate"]],
+["Do you speak English ___?","сносно",["decently"]],
+["Our ___ to Paris leaves at nine.","рейс",["flight"]],
+["Wait in the ___ until boarding starts.","зал ожидания",["departure lounge"]],
+["Please place all liquids in a bag before the ___.","проверка безопасности",["security check"]],
+["Collect your bags at ___.","зона выдачи багажа",["baggage claim"]],
+["Don't forget your ___; you can't board without it.","посадочный талон",["boarding pass"]],
+["Don't worry about it, it's ___.","неважно",["unimportant","doesn't matter","does not matter"]],
+["He was my ___ on the trip.","товарищ",["companion"]],
+["I forgot my ___ at home, so I couldn't board.","посадочный талон",["boarding pass"]],
+["The ___ is open 24 hours, so you can check in anytime.","стойка регистрации",["check-in desk"],"check-in desk"],
+["The doctor checked my ___ and said it was fine.","позвоночник",["spine"]],
+["The company wants to ___ to new markets.","расширяться",["expand","to expand"]],
+["He is just an ___, not a close friend.","знакомый",["acquaintance"]],
+["I have a long ___ between two flights.","пересадка",["layover"]],
+["I'll put my ___ in the overhead bin.","ручная кладь",["hand luggage","hand baggage","carry-on"]],
+["The ___ at the entrance was closed.","шлагбаум",["barrier"]],
+["I speak French only ___.","сносно",["decently"]]
+];
+const ALT={"doesn't matter":["unimportant","does not matter"],"hand luggage":["hand baggage","carry-on"],"to expand":["expand"],"broadening horizons":["broadening your horizons"]};
+const WT=W.map(w=>[w[0],"переведи на английский",[w[1],...(ALT[w[1]]||[])],w[1]]);
+const sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const norm=s=>s.toLowerCase().replace(/[-–]/g," ").replace(/[’`]/g,"'").replace(/\s+/g," ").trim();
+const mk=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
+
+function wordQuiz(idx){ // idx 0: RU->EN, 1: EN->RU
+  const from=idx?1:0,to=idx?0:1;
+  return sh(W).map(w=>({q:w[from],ans:w[to],opts:sh([w[to],...sh(W.filter(x=>x[to]!==w[to])).slice(0,3).map(x=>x[to])])}));
+}
+
+function mcq(box,items){
+  box.innerHTML="";let done=0,right=0;const wrong=[];
+  const bar=mk("div","bar");const sc=mk("span","score","Верно: 0 / "+items.length);
+  const rs=mk("button","btn ghost","Заново");bar.append(sc,rs);box.append(bar);
+  rs.onclick=()=>box.dispatchEvent(new Event("reset"));
+  items.forEach((it,i)=>{
+    const q=mk("div","q");q.append(mk("div","qt",`<span class="n">${i+1}.</span>${it.q}`));
+    const o=mk("div","opts");
+    it.opts.forEach(t=>{
+      const b=mk("button","",t);
+      b.onclick=()=>{
+        o.querySelectorAll("button").forEach(x=>{x.disabled=true;if(x.textContent===it.ans)x.classList.add("ok")});
+        if(t===it.ans)right++;else{b.classList.add("bad");wrong.push(it)}
+        done++;sc.textContent=`Верно: ${right} / ${items.length}`+(done===items.length?" — готово!":"");
+        if(done===items.length&&wrong.length){
+          const r=mk("button","btn","Повторить ошибки ("+wrong.length+")");r.style.marginBottom="20px";
+          r.onclick=()=>{mcq(box,wrong.map(x=>({...x,opts:sh(x.opts)})));window.scrollTo(0,0)};box.append(r);
+        }
+      };o.append(b);
+    });
+    q.append(o);box.append(q);
+  });
+}
+
+function typed(box,list){
+  box.innerHTML="";const items=sh(list);const ins=[];
+  const bar=mk("div","bar");const sc=mk("span","score","Впиши слово или фразу по-английски");
+  const rs=mk("button","btn ghost","Заново");bar.append(sc,rs);box.append(bar);
+  rs.onclick=()=>box.dispatchEvent(new Event("reset"));
+  items.forEach((it,i)=>{
+    const q=mk("div","q");
+    q.append(mk("div","qt",`<span class="n">${i+1}.</span>${it[0].replace("___",'<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>')}`));
+    q.append(mk("div","hint",it[1].split(" · ").pop()));
+    const inp=mk("input");inp.type="text";inp.autocomplete="off";inp.autocapitalize="off";inp.spellcheck=false;
+    const a=mk("div","ans");q.append(inp,a);box.append(q);ins.push([inp,a,it]);
+  });
+  const chk=mk("button","btn","Проверить всё");chk.style.marginBottom="20px";
+  chk.onclick=()=>{
+    let r=0;
+    ins.forEach(([inp,a,it])=>{
+      const ok=it[2].map(norm).includes(norm(inp.value));
+      inp.className=ok?"ok":"bad";a.textContent=ok?"":"Правильно: "+(it[3]||it[2][0]);
+      if(ok)r++;
+    });
+    sc.textContent=`Верно: ${r} / ${items.length}`;
+  };
+  box.append(chk);
+}
+
+function say(t){try{const u=new SpeechSynthesisUtterance(t.replace(/^to /,""));u.lang="en-GB";speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+
+function cards(box){
+  let deck=sh(W),i=0,flip=false,known=0,miss=[];
+  const draw=()=>{
+    box.innerHTML="";
+    if(i>=deck.length){
+      box.append(mk("div","q",`<div class="qt">Круг закончен. Знаю: ${known}, повторить: ${miss.length}</div>`));
+      const row=mk("div","row");
+      if(miss.length){const b=mk("button","btn","Повторить незнакомые");b.onclick=()=>{deck=sh(miss);miss=[];i=0;known=0;flip=false;draw()};row.append(b)}
+      const r=mk("button","btn ghost","Все слова заново");r.onclick=()=>box.dispatchEvent(new Event("reset"));row.append(r);box.append(row);return;
+    }
+    const w=deck[i];
+    box.append(mk("div","bar",`<span class="score">${i+1} / ${deck.length}</span><span class="hint">нажми на карточку, чтобы перевернуть</span>`));
+    const c=mk("div","card",flip?`<small>EN</small>${w[1]}`:`<small>RU</small>${w[0]}`);
+    c.onclick=()=>{flip=!flip;if(flip)say(w[1]);draw()};box.append(c);
+    const row=mk("div","row");
+    if(flip){
+      const no=mk("button","btn ghost","Не знаю");no.onclick=()=>{miss.push(w);i++;flip=false;draw()};
+      const yes=mk("button","btn","Знаю");yes.onclick=()=>{known++;i++;flip=false;draw()};
+      const sp=mk("button","btn ghost","🔊");sp.style.flex="0 0 56px";sp.onclick=()=>say(w[1]);
+      row.append(no,sp,yes);box.append(row);
+    }
+  };
+  draw();
+}
+
+function pairs(box){
+  const ws=sh(W),rounds=[];for(let k=0;k<ws.length;k+=6)rounds.push(ws.slice(k,k+6));
+  let r=0,err=0;
+  const draw=()=>{
+    box.innerHTML="";
+    if(r>=rounds.length){
+      box.append(mk("div","q",`<div class="qt">Все пары собраны! Ошибок: ${err}</div>`));
+      const b=mk("button","btn","Заново");b.onclick=()=>box.dispatchEvent(new Event("reset"));box.append(b);return;
+    }
+    const set=rounds[r];
+    box.append(mk("div","bar",`<span class="score">Раунд ${r+1} / ${rounds.length}</span><span class="hint">ошибок: ${err}</span>`));
+    const g=mk("div","pg");let sel=null,left=set.length;
+    const L=sh(set).map(w=>{const b=mk("button","",w[0]);b.w=w;return b});
+    const R=sh(set).map(w=>{const b=mk("button","",w[1]);b.w=w;return b});
+    const lc=mk("div"),rc=mk("div");[lc,rc].forEach(c=>{c.style.display="grid";c.style.gap="8px"});
+    L.forEach(b=>{b.onclick=()=>{if(b.classList.contains("ok"))return;L.forEach(x=>x.classList.remove("sel"));b.classList.add("sel");sel=b}});
+    R.forEach(b=>{b.onclick=()=>{
+      if(b.classList.contains("ok")||!sel)return;
+      if(sel.w===b.w){sel.className="ok";b.className="ok";sel=null;left--;if(left===0)setTimeout(()=>{r++;draw()},700)}
+      else{err++;b.classList.add("bad");setTimeout(()=>b.classList.remove("bad"),400)}
+    }});
+    lc.append(...L);rc.append(...R);g.append(lc,rc);box.append(g);
+  };
+  draw();
+}
+
+const sentQuiz=()=>sh(S).map(s=>({q:s[0].replace("___",'<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>'),ans:s[1],opts:sh([s[1],...s[2]])}));
+const transQuiz=()=>sh(P).map(p=>({q:p[0],ans:p[1],opts:sh([p[1],...p[2]])}));
+
+const tabs=[
+["🃏 Карточки",cards],
+["🔗 Пары",pairs],
+["RU → EN",b=>mcq(b,wordQuiz(0))],
+["EN → RU",b=>mcq(b,wordQuiz(1))],
+["Предложения: выбор",b=>mcq(b,sentQuiz())],
+["Предложения: впиши",b=>typed(b,T)],
+["Слово: впиши",b=>typed(b,WT)],
+["Перевод фраз",b=>mcq(b,transQuiz())]
+];
+const tb=document.getElementById("tabs"),pn=document.getElementById("panels");
+tabs.forEach(([name,fn],i)=>{
+  const b=mk("button",i?"":"on",name),p=mk("div","panel"+(i?"":" on"));
+  const render=()=>fn(p);p.addEventListener("reset",render);render();
+  b.onclick=()=>{tb.querySelectorAll("button").forEach(x=>x.classList.remove("on"));pn.querySelectorAll(".panel").forEach(x=>x.classList.remove("on"));b.classList.add("on");p.classList.add("on");window.scrollTo(0,0)};
+  tb.append(b);pn.append(p);
+});
+</script>
+</body>
+</html>
