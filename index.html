@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Тест по лексике: Airport + Lesson words</title>
+<title>Cooking: тест по лексике</title>
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 --bg:#faf7f2;--card:#fff;--tx:#1b2438;--mut:#6b7385;--bd:#e3ddd0;--ac:#1b2438;--ok:#d9f2e0;--okb:#2e9b57;--bad:#fadcdc;--badb:#d04545}
@@ -49,116 +49,26 @@ input.ok{background:var(--ok);border-color:var(--okb)}input.bad{background:var(-
 </head>
 <body>
 <main>
-<h1>✈️ Тест по лексике</h1>
-<p class="sub">Airport + слова с прошлого урока. Идти по вкладкам слева направо: карточки → пары → тесты → предложения → перевод.</p>
+<h1>🍳 Cooking: тест по лексике</h1>
+<p class="sub">Кухня, способы приготовления, рецепт. Иди по вкладкам слева направо. Слова можно фильтровать:</p><select id="gr" style="padding:9px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);margin-bottom:12px;font-size:15px"><option value="all">Все слова</option><option value="tools">Посуда и техника</option><option value="verbs">Глаголы готовки</option><option value="recipe">Рецепт и задание</option></select>
 <div class="tabs" id="tabs"></div>
 <div id="panels"></div>
 </main>
 <script>
-const W=[
-["Посадочный талон","boarding pass"],["Стойка регистрации","check-in desk"],["Проверка безопасности","security check"],
-["Зал ожидания","departure lounge"],["Ручная кладь","hand luggage"],["Зона выдачи багажа","baggage claim"],
-["Выход на посадку","gate"],["Таможня","customs"],["Задержка","delay"],["Пересадка","layover"],
-["Позвоночник","spine"],["Расширять","to expand"],["Товарищ","companion"],["Знакомый","acquaintance"],
-["Общежитие","dormitory"],["Отравление","poisoning"],["Неважно","doesn't matter"],["Халат","robe"],
-["Расширение кругозора","broadening horizons"],["Буквально","literally"],["Рейс","flight"],
-["Шлагбаум","barrier"],["Сносно","decently"]
-];
-const S=[
-["Don't forget your ___; you can't board the plane without it.","boarding pass",["customs","delay"]],
-["You must go through the ___ before the gate.","security check",["baggage claim","layover"]],
-["We collect our suitcases at the ___.","baggage claim",["departure lounge","gate"]],
-["Our flight had a two-hour ___ in Dubai.","layover",["customs","spine"]],
-["I can't come to work. I have food ___.","poisoning",["acquaintance","dormitory"]],
-["He hurt his ___ playing football.","spine",["robe","barrier"]],
-["After the shower she put on a bathrobe — a soft ___.","robe",["companion","dormitory"]],
-["Traveling is great for ___.","broadening horizons",["poisoning","layover"]],
-["I live in a university ___.","dormitory",["gate","acquaintance"]],
-["I know him a little — he's just an ___.","acquaintance",["dormitory","customs"]],
-["Our ___ to Paris was delayed by three hours.","flight",["spine","robe"]],
-["The car stopped in front of the ___.","barrier",["acquaintance","customs"]],
-["He speaks English quite ___.","decently",["barrier","dormitory"]],
-["I was ___ shocked when I saw the price.","literally",["decently","customs"]],
-["We want to ___ our business to other cities.","expand",["poison","board"]],
-["Don't worry about the mistake, it ___.","doesn't matter",["expands","is literally"]],
-["My travel ___ was very friendly.","companion",["spine","customs"]],
-["Please wait in the ___ until boarding starts.","departure lounge",["baggage claim","customs"]],
-["I'll put my ___ in the overhead bin.","hand luggage",["delay","check-in desk"]],
-["Go to the ___ to get your boarding pass.","check-in desk",["baggage claim","gate"]],
-["The plane is at ___ 15. Check the screen.","gate",["customs","layover"]],
-["Because of the ___, we waited at the airport for hours.","delay",["robe","gate"]],
-["All passengers must show their ___ at the gate.","boarding pass",["spine","barrier"]],
-["Liquids are not allowed in ___.","hand luggage",["dormitory","customs"]],
-["He stayed in a ___ during his first year at university.","dormitory",["layover","robe"]],
-["The doctor said it's food ___ and gave me pills.","poisoning",["spine","gate"]],
-["She was my ___ at the conference — we sat together.","companion",["delay","barrier"]],
-["This is ___ the best pizza in the city.","literally",["customs","spine"]],
-["We need to ___ the company, so we are hiring new people.","expand",["board","delay"]],
-["The ___ was closed, so we couldn't enter the parking lot.","barrier",["customs","robe"]],
-["I speak Spanish only ___, but I can order food.","decently",["literally","gate"]],
-["We waited at ___ for an hour for our suitcases.","baggage claim",["check-in desk","layover"]],
-["Please go to ___ and declare your goods.","customs",["gate","spine"]],
-["Meeting people from different countries is good for ___.","broadening horizons",["poisoning","delay"]],
-["I forgot his name, but it ___.","doesn't matter",["expands","is a layover"]],
-["My ___ hurts after ten hours on the plane.","spine",["gate","acquaintance"]]
-];
-const P=[
-["Не забудь посадочный талон.","Don't forget your boarding pass.",["Don't forget your baggage claim.","Don't forget your customs."]],
-["Наш рейс задержали на три часа.","Our flight was delayed by three hours.",["Our flight left three hours early.","Our gate was three hours."]],
-["Подожди меня в зале ожидания.","Wait for me in the departure lounge.",["Wait for me at the baggage claim.","Wait for me at the check-in desk."]],
-["У меня пищевое отравление.","I have food poisoning.",["I have a food allergy.","I have a sore spine."]],
-["У нас пересадка в Дубае.","We have a layover in Dubai.",["We have a delay in Dubai.","We have customs in Dubai."]],
-["Я живу в общежитии.","I live in a dormitory.",["I live with an acquaintance.","I live near the barrier."]],
-["Он буквально спас меня.","He literally saved me.",["He decently saved me.","He expanded me."]],
-["Шлагбаум поднялся, и мы проехали.","The barrier went up and we drove through.",["The customs went up and we drove through.","The robe went up and we drove through."]],
-["Сначала пройдите проверку безопасности.","First, go through the security check.",["First, go to the baggage claim.","First, go through customs."]],
-["Путешествия расширяют кругозор.","Traveling is broadening horizons.",["Traveling is a long layover.","Traveling is food poisoning."]],
-["Мой рейс в 9 утра, выход на посадку 15.","My flight is at 9 a.m., gate 15.",["My delay is at 9 a.m., gate 15.","My flight is at 9 a.m., customs 15."]],
-["Это неважно, не переживай.","It doesn't matter, don't worry.",["It is literally, don't worry.","It is a robe, don't worry."]]
-];
-const T=[
-["Show your passport at ___ if you fly abroad.","таможня",["customs"]],
-["My suitcase is big, so I check it in at the ___ desk.","check-in … desk · стойка регистрации",["check-in","check in"],"check-in"],
-["The plane is at ___ 15. Check the screen.","выход на посадку",["gate"]],
-["I only travel with ___ when I'm on a short trip.","ручная кладь",["hand luggage"]],
-["The ___ was caused by bad weather.","задержка",["delay"]],
-["We have a short ___ in Istanbul.","пересадка",["layover"]],
-["I can't come, I have food ___.","отравление",["poisoning"]],
-["He has a problem with his ___.","позвоночник",["spine"]],
-["Students live in a ___.","общежитие",["dormitory"]],
-["She put on her bathrobe — a soft ___.","халат",["robe"]],
-["This flight is ___ the cheapest one.","буквально",["literally"]],
-["I want to ___ my vocabulary.","расширять",["expand","to expand"]],
-["He's my old ___. We met at university.","знакомый",["acquaintance"]],
-["Traveling is good for ___.","расширение кругозора",["broadening horizons"]],
-["The ___ went up and the car drove in.","шлагбаум",["barrier","gate"]],
-["Do you speak English ___?","сносно",["decently"]],
-["Our ___ to Paris leaves at nine.","рейс",["flight"]],
-["Wait in the ___ until boarding starts.","зал ожидания",["departure lounge"]],
-["Please place all liquids in a bag before the ___.","проверка безопасности",["security check"]],
-["Collect your bags at ___.","зона выдачи багажа",["baggage claim"]],
-["Don't forget your ___; you can't board without it.","посадочный талон",["boarding pass"]],
-["Don't worry about it, it's ___.","неважно",["unimportant","doesn't matter","does not matter"]],
-["He was my ___ on the trip.","товарищ",["companion"]],
-["I forgot my ___ at home, so I couldn't board.","посадочный талон",["boarding pass"]],
-["The ___ is open 24 hours, so you can check in anytime.","стойка регистрации",["check-in desk"],"check-in desk"],
-["The doctor checked my ___ and said it was fine.","позвоночник",["spine"]],
-["The company wants to ___ to new markets.","расширяться",["expand","to expand"]],
-["He is just an ___, not a close friend.","знакомый",["acquaintance"]],
-["I have a long ___ between two flights.","пересадка",["layover"]],
-["I'll put my ___ in the overhead bin.","ручная кладь",["hand luggage","hand baggage","carry-on"]],
-["The ___ at the entrance was closed.","шлагбаум",["barrier"]],
-["I speak French only ___.","сносно",["decently"]]
-];
-const ALT={"doesn't matter":["unimportant","does not matter"],"hand luggage":["hand baggage","carry-on"],"to expand":["expand"],"broadening horizons":["broadening your horizons"]};
-const WT=W.map(w=>[w[0],"переведи на английский",[w[1],...(ALT[w[1]]||[])],w[1]]);
+const W=[["чайник (электрический)", "kettle", "tools"], ["тостер", "toaster", "tools"], ["микроволновка", "microwave oven", "tools"], ["холодильник", "refrigerator / fridge", "tools"], ["посудомоечная машина", "dishwasher", "tools"], ["хлебница", "breadbox / breadbasket", "tools"], ["блендер", "blender", "tools"], ["дуршлаг", "colander", "tools"], ["кухонная посуда", "cookware", "tools"], ["сковорода", "frying pan", "tools"], ["заварочный чайник", "teapot", "tools"], ["кофемашина", "coffee maker", "tools"], ["кастрюля", "pot", "tools"], ["ковш (небольшая кастрюля)", "saucepan", "tools"], ["неглубокая сковорода", "skillet", "tools"], ["картофелечистка", "potato peeler", "tools"], ["молоток для мяса", "meat mallet", "tools"], ["скалка", "rolling pin", "tools"], ["половник", "ladle", "tools"], ["фартук", "apron", "tools"], ["тарелка", "plate", "tools"], ["блюдце", "saucer", "tools"], ["стакан", "glass", "tools"], ["чашка / кружка", "cup / mug", "tools"], ["ложка", "spoon", "tools"], ["чайная ложка", "teaspoon", "tools"], ["вилка", "fork", "tools"], ["нож", "knife", "tools"], ["палочки для еды", "chopsticks", "tools"], ["салфетка", "napkin", "tools"], ["зубочистка", "toothpick", "tools"], ["духовка", "oven", "tools"], ["жарить", "fry", "verbs"], ["варить", "boil", "verbs"], ["печь, выпекать", "bake", "verbs"], ["запекать на гриле", "grill", "verbs"], ["коптить", "smoke", "verbs"], ["жарить на барбекю", "barbecue", "verbs"], ["жарить на сильном огне", "broil", "verbs"], ["чистить (от кожуры)", "peel", "verbs"], ["наливать", "pour", "verbs"], ["смешивать", "mix", "verbs"], ["взбивать (сливки)", "whip", "verbs"], ["взбивать (яйца, тесто)", "beat", "verbs"], ["приправлять", "season", "verbs"], ["мелко рубить", "chop", "verbs"], ["нарезать кубиками", "dice", "verbs"], ["нарезать ломтиками", "slice", "verbs"], ["порезать на кусочки", "cut into pieces", "verbs"], ["тереть на тёрке", "grate", "verbs"], ["делать пюре", "mash", "verbs"], ["просеивать", "sift", "verbs"], ["замесить", "knead", "verbs"], ["пропустить через мясорубку", "mince", "verbs"], ["переворачивать", "flip", "verbs"], ["разогреть заранее", "preheat", "verbs"], ["остыть", "cool", "verbs"], ["класть сверху", "top", "verbs"], ["перемешивать (подбрасывая)", "toss", "verbs"], ["сливать воду", "drain", "verbs"], ["рецепт", "recipe", "recipe"], ["ингредиенты", "ingredients", "recipe"], ["порция", "serving", "recipe"], ["выход (кол-во порций)", "yield", "recipe"], ["нарезанный кубиками", "diced", "recipe"], ["консервированный", "canned", "recipe"], ["тёртый сыр", "shredded cheese", "recipe"], ["куриная грудка", "chicken breast", "recipe"], ["небольшой (на один укус)", "bite-size", "recipe"], ["вкусный, восхитительный", "delicious", "recipe"], ["подгоревший", "burnt", "recipe"], ["ломтик хлеба", "a slice of bread", "recipe"], ["лазанья", "lasagne", "recipe"], ["шеф-повар", "chef", "recipe"], ["аккуратно перемешайте", "gently toss to combine", "recipe"], ["Приятного аппетита!", "Enjoy your meal!", "recipe"]];
+const S=[["Read the ___ before you start cooking.", "recipe", ["oven", "apron"]], ["We need to buy all the ___ for the cake.", "ingredients", ["saucepan", "napkins"]], ["Heat the soup in a ___.", "saucepan", ["colander", "toothpick"]], ["Preheat the ___ to 180°C.", "oven", ["blender", "saucer"]], ["Add one ___ of salt.", "teaspoon", ["ladle", "serving"]], ["This pasta is absolutely ___!", "delicious", ["burnt", "canned"]], ["I left the toast too long, and it got ___.", "burnt", ["delicious", "shredded"]], ["Could you give me a ___ of bread?", "slice", ["yield", "mug"]], ["I boil water for tea in an electric ___.", "kettle", ["toaster", "colander"]], ["Put the bread in the ___ to make toast.", "toaster", ["kettle", "rolling pin"]], ["Use a ___ to drain the spaghetti.", "colander", ["ladle", "napkin"]], ["She served the soup with a big ___.", "ladle", ["chopsticks", "dishwasher"]], ["Roll out the dough with a ___.", "rolling pin", ["meat mallet", "potato peeler"]], ["Use a ___ to peel the potatoes quickly.", "potato peeler", ["blender", "saucer"]], ["Put your cup on a ___.", "saucer", ["skillet", "apron"]], ["Wear an ___ so you don't get your clothes dirty.", "apron", ["napkin", "mug"]], ["Japanese people eat sushi with ___.", "chopsticks", ["ladles", "meat mallets"]], ["Put the dirty plates in the ___.", "dishwasher", ["fridge", "breadbox"]], ["Keep the milk in the ___.", "refrigerator", ["toaster", "oven"]], ["Make a smoothie in a ___.", "blender", ["colander", "kettle"]], ["Fry the chicken in a ___.", "frying pan", ["teapot", "saucer"]], ["Heat the milk in the ___ for 30 seconds.", "microwave oven", ["dishwasher", "breadbox"]], ["Please ___ the potatoes before boiling them.", "peel", ["pour", "whip"]], ["___ the cream until it is thick.", "Whip", ["Peel", "Grate"]], ["___ the cheese over the pizza.", "Grate", ["Knead", "Pour"]], ["___ the dough for ten minutes.", "Knead", ["Sift", "Mash"]], ["___ the flour to remove the lumps.", "Sift", ["Mince", "Flip"]], ["___ the pancake when one side is golden.", "Flip", ["Beat", "Season"]], ["___ the potatoes and add butter to make puree.", "Mash", ["Chop", "Smoke"]], ["___ the salad with salt, pepper and oil.", "Season", ["Slice", "Boil"]], ["___ the meat to make burgers.", "Mince", ["Bake", "Pour"]], ["In Norway they ___ salmon, and it tastes of smoke.", "smoke", ["bake", "whip"]], ["Mum will ___ a cake for my birthday.", "bake", ["grate", "flip"]], ["Cut the tomato into small cubes — ___ it.", "dice", ["mash", "pour"]], ["Please ___ some milk into my cup.", "pour", ["peel", "mince"]], ["___ the corn, please — we don't need the water.", "Drain", ["Whip", "Flip"]], ["Add ___ corn and black beans.", "canned", ["diced", "bite-size"]], ["___ cheese goes on top of the pasta.", "Shredded", ["Burnt", "Canned"]], ["Let the chicken ___ before cutting it.", "cool", ["flip", "season"]], ["Cut the meat into ___ pieces.", "bite-size", ["canned", "burnt"]], ["This recipe makes four ___.", "servings", ["skillets", "yields"]], ["Gently ___ the salad to combine everything.", "toss", ["mash", "knead"]], ["The ___ cooked the lasagne for the guests.", "chef", ["napkin", "teapot"]]];
+const T=[["Heat olive oil in a medium ___ over medium heat.", "неглубокая сковорода", ["skillet"], "skillet"], ["Season the chicken ___ with salt and pepper.", "куриная грудка", ["breasts", "breast"], "breasts"], ["Let it ___ before dicing.", "остыть", ["cool"], "cool"], ["Cut the chicken into ___ pieces.", "небольшие", ["bite-size", "bite size", "bite-sized"], "bite-size"], ["___ the chicken with tomato, corn and cheese.", "положи сверху", ["top"], "top"], ["___ the dressing on top of the salad.", "налей", ["pour"], "pour"], ["Gently ___ to combine.", "перемешай", ["toss"], "toss"], ["1 tomato, ___.", "нарезанный кубиками", ["diced"], "diced"], ["3/4 cup ___ black beans, drained.", "консервированные", ["canned"], "canned"], ["1/4 cup ___ cheese.", "тёртый", ["shredded"], "shredded"], ["This recipe makes four ___.", "порции", ["servings"], "servings"], ["I make tea in an electric ___.", "чайник", ["kettle"], "kettle"], ["Put the bread in the ___.", "тостер", ["toaster"], "toaster"], ["Wash the plates in the ___.", "посудомойка", ["dishwasher"], "dishwasher"], ["Use a ___ to drain pasta.", "дуршлаг", ["colander"], "colander"], ["Fry eggs in a ___.", "сковорода", ["frying pan", "frying-pan"], "frying pan"], ["___ the potatoes before cooking.", "чистить", ["peel"], "peel"], ["Use a ___ to roll out the dough.", "скалка", ["rolling pin"], "rolling pin"], ["Serve the soup with a ___.", "половник", ["ladle"], "ladle"], ["Eat noodles with ___.", "палочки для еды", ["chopsticks"], "chopsticks"], ["Wipe your mouth with a ___.", "салфетка", ["napkin"], "napkin"], ["Put your cup on the ___.", "блюдце", ["saucer"], "saucer"], ["Wear an ___ while cooking.", "фартук", ["apron"], "apron"], ["Pound the meat with a meat ___.", "молоток", ["mallet"], "mallet"], ["___ the cheese.", "тереть", ["grate"], "grate"], ["___ the flour.", "просеять", ["sift"], "sift"], ["___ the dough.", "замесить", ["knead"], "knead"], ["___ the meat for burgers.", "пропустить через мясорубку", ["mince"], "mince"], ["___ the pancake.", "перевернуть", ["flip"], "flip"], ["___ the potatoes.", "сделать пюре", ["mash"], "mash"], ["___ the cream.", "взбить", ["whip"], "whip"], ["Heat the soup in a ___.", "ковш", ["saucepan"], "saucepan"], ["___ the oven to 180°C.", "разогреть заранее", ["preheat"], "preheat"], ["Read the ___ first.", "рецепт", ["recipe"], "recipe"], ["Cut the cake and give me a ___.", "ломтик", ["slice"], "slice"], ["Put the milk in the ___ to keep it cold.", "холодильник", ["fridge", "refrigerator"], "fridge"], ["I forgot the toast, and now it's ___.", "подгоревший", ["burnt"], "burnt"]];
+const P=[["Прочитай рецепт перед началом.", "Read the recipe before you start.", ["Read the ingredients before you start.", "Read the oven before you start."]], ["Разогрей духовку до 180 градусов.", "Preheat the oven to 180°C.", ["Preheat the toaster to 180°C.", "Preheat the fridge to 180°C."]], ["Добавь одну чайную ложку соли.", "Add one teaspoon of salt.", ["Add one ladle of salt.", "Add one saucer of salt."]], ["Эта паста просто восхитительна!", "This pasta is absolutely delicious!", ["This pasta is absolutely burnt!", "This pasta is absolutely canned!"]], ["Тост подгорел.", "The toast is burnt.", ["The toast is diced.", "The toast is whipped."]], ["Аккуратно перемешайте салат.", "Gently toss the salad to combine.", ["Gently mince the salad to combine.", "Gently bake the salad to combine."]], ["Нарежь курицу небольшими кусочками.", "Cut the chicken into bite-size pieces.", ["Cut the chicken into canned pieces.", "Grate the chicken into burnt pieces."]], ["Дай курице остыть.", "Let the chicken cool.", ["Let the chicken flip.", "Let the chicken mash."]], ["Слей воду из консервированной кукурузы.", "Drain the canned corn.", ["Pour the diced corn.", "Drain the shredded corn."]], ["Просей муку и замеси тесто.", "Sift the flour and knead the dough.", ["Mince the flour and whip the dough.", "Sift the flour and mash the dough."]], ["Я варю яйца и жарю сосиски.", "I boil eggs and fry sausages.", ["I bake eggs and whip sausages.", "I grate eggs and slice sausages into water."]], ["Она в фартуке и с половником в руке.", "She is wearing an apron and holding a ladle.", ["She is wearing a napkin and holding a saucer.", "She is wearing a mug and holding a toothpick."]], ["Мы едим суши палочками.", "We eat sushi with chopsticks.", ["We eat sushi with toothpicks.", "We eat sushi with ladles."]], ["Положи сыр сверху и подавай сразу.", "Top it with cheese and serve immediately.", ["Beat it with cheese and serve immediately.", "Smoke it with cheese and serve immediately."]], ["Рецепт рассчитан на четыре порции.", "The recipe makes four servings.", ["The recipe makes four skillets.", "The recipe makes four chefs."]]];
+const ALT={"refrigerator / fridge": ["refrigerator", "fridge"], "breadbox / breadbasket": ["breadbox", "breadbasket"], "cup / mug": ["cup", "mug"], "microwave oven": ["microwave"], "frying pan": ["frying-pan"], "coffee maker": ["coffee machine"], "shredded cheese": ["shredded", "grated cheese"], "bite-size": ["bite size", "bite-sized"], "a slice of bread": ["slice of bread", "a slice"], "Enjoy your meal!": ["enjoy your meal"], "gently toss to combine": ["toss gently to combine"], "cut into pieces": ["cut into pieces"], "chicken breast": ["chicken breasts"]};
+let GR='all';const cur=()=>GR==='all'?W:W.filter(w=>w[2]===GR);
+const WT=()=>cur().map(w=>[w[0],'переведи на английский',[w[1],...(ALT[w[1]]||[])],w[1]]);
 const sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
 const norm=s=>s.toLowerCase().replace(/[-–]/g," ").replace(/[’`]/g,"'").replace(/\s+/g," ").trim();
 const mk=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
 
 function wordQuiz(idx){ // idx 0: RU->EN, 1: EN->RU
   const from=idx?1:0,to=idx?0:1;
-  return sh(W).map(w=>({q:w[from],ans:w[to],opts:sh([w[to],...sh(W.filter(x=>x[to]!==w[to])).slice(0,3).map(x=>x[to])])}));
+  return sh(cur()).map(w=>({q:w[from],ans:w[to],opts:sh([w[to],...sh(W.filter(x=>x[to]!==w[to])).slice(0,3).map(x=>x[to])])}));
 }
 
 function mcq(box,items){
@@ -213,7 +123,7 @@ function typed(box,list){
 function say(t){try{const u=new SpeechSynthesisUtterance(t.replace(/^to /,""));u.lang="en-GB";speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 
 function cards(box){
-  let deck=sh(W),i=0,flip=false,known=0,miss=[];
+  let deck=sh(cur()),i=0,flip=false,known=0,miss=[];
   const draw=()=>{
     box.innerHTML="";
     if(i>=deck.length){
@@ -238,7 +148,7 @@ function cards(box){
 }
 
 function pairs(box){
-  const ws=sh(W),rounds=[];for(let k=0;k<ws.length;k+=6)rounds.push(ws.slice(k,k+6));
+  const ws=sh(cur()),rounds=[];for(let k=0;k<ws.length;k+=6)rounds.push(ws.slice(k,k+6));
   let r=0,err=0;
   const draw=()=>{
     box.innerHTML="";
@@ -273,9 +183,10 @@ const tabs=[
 ["EN → RU",b=>mcq(b,wordQuiz(1))],
 ["Предложения: выбор",b=>mcq(b,sentQuiz())],
 ["Предложения: впиши",b=>typed(b,T)],
-["Слово: впиши",b=>typed(b,WT)],
+["Слово: впиши",b=>typed(b,WT())],
 ["Перевод фраз",b=>mcq(b,transQuiz())]
 ];
+document.getElementById("gr").onchange=e=>{GR=e.target.value;document.querySelectorAll(".panel").forEach(p=>p.dispatchEvent(new Event("reset")))};
 const tb=document.getElementById("tabs"),pn=document.getElementById("panels");
 tabs.forEach(([name,fn],i)=>{
   const b=mk("button",i?"":"on",name),p=mk("div","panel"+(i?"":" on"));
